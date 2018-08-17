@@ -2,17 +2,28 @@ import React, {Component} from 'react'
 import {
     View,
     Text,
-    Button,
     StyleSheet,
     TextInput,
     Dimensions,
-    TouchableHighlight
+    TouchableHighlight,
+    ImageBackground,
+    Image
 } from 'react-native'
-import MainStyles from './MainStyles'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import ButtonSubmit from './ButtonSubmit'
+
+import LoginForm from './LoginForm'
+import bgSrc from './images/wallpaper.jpg'
+import logoImg from './images/logo.png';
 
 var {height, width} = Dimensions.get('window');
 
 export default class Login extends Component {
+    static navigationOptions = {
+        title: 'Acceso socios',
+        tabBarIcon: <Icon size={24} color="white" name="login" />
+      };
     constructor(props){
         super(props)
 
@@ -23,59 +34,39 @@ export default class Login extends Component {
     }
     render(){
         return(
-            <View style={{flex: 1, paddingLeft:15,paddingRight:15}}>
-                <Text>Login</Text>
-                <TextInput
-                    placeholder='Número de Socio'
-                    style={styles.inputtext}
-                    onChangeText={(socio) => this.setState({socio})}
-                    value={this.state.socio}
-                    keyboardType='numeric'
-                    underlineColorAndroid='transparent'
+          <View style={styles.container}>
+            <ImageBackground style={styles.picture} source={bgSrc}>
+                <View style={styles.container2}>
+                    <Image source={logoImg} style={styles.image} />
+                </View>
+                <LoginForm {...this.props}/>
+                <ButtonSubmit 
+                    {...this.props}
                 />
-                <TextInput
-                    placeholder='Contraseña'
-                    style={styles.inputtext}
-                    onChangeText={(password) => this.setState({password})}
-                    value={this.state.password}
-                    secureTextEntry={true}
-                    underlineColorAndroid='transparent'
-                />
-                <TouchableHighlight style={styles.button}>
-                    <Text style={styles.buttonText}>Enviar</Text>
-                </TouchableHighlight>
-                <TouchableHighlight style={styles.button2}>
-                    <Text style={styles.remember}>¿Olvidó su contraseña?</Text>
-                </TouchableHighlight>
-            </View>
+            </ImageBackground>
+          </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
-    inputtext: {
-        height: 40, 
-        borderColor: 'gray', 
-        borderWidth: 1,
-        width
-    },
-    button: {
-        backgroundColor: MainStyles.color1,
-        paddingTop: 15,
-        paddingBottom: 15,
-        marginTop: 15
-    },
-    buttonText: {
-       textAlign: 'center',
-       color: 'white'
-    },
-    button2: {
-        paddingTop: 15,
-        paddingBottom: 15
-    },
-    remember: {
-        textAlign: 'center',
-        color: MainStyles.color1
-     },
- 
+    container: {
+        flex: 1,
+        backgroundColor: '#E4F1FE',
+      },
+      picture: {
+        flex: 1,
+        width: null,
+        height: null,
+        resizeMode: 'cover',
+      },
+      container2: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+      image: {
+        width: 275,
+        height: 90,
+      }
   });
